@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.ThemeDictionaries>
+		<ResourceDictionary x:Key="Light">
+			<!--Background-->
+			<Color x:Key='LayoutBackgroundColor'>White</Color>
+			<Color x:Key='ButtonBackground'>DarkGreen</Color>
+			<Color x:Key='TitleBarBackground'>#747474</Color>
+			<Color x:Key='NavigationBarBackground'>#747474</Color>
+			
+			<!--Shader-->
+			<Color x:Key='Shader'>#1A1A1A</Color>
+			
+			<!--Font-->
+			<SolidColorBrush x:Key='BackgroundBrush'>SpringGreen</SolidColorBrush>
+			<SolidColorBrush x:Key='ForegroundBrush'>White</SolidColorBrush>
+		</ResourceDictionary>
+		
+		
+		
+		<ResourceDictionary x:Key="Dark">
+			<!--Background-->
+			<Color x:Key='LayoutBackgroundColor'>Black</Color>
+			<Color x:Key='ButtonBackground'>DarkGreen</Color>
+			<Color x:Key='TitleBarBackground'>#292929</Color>
+			<Color x:Key='NavigationBarBackground'>#292929</Color>
+
+			<!--Font-->
+			<SolidColorBrush x:Key='BackgroundBrush'>SpringGreen</SolidColorBrush>
+			<SolidColorBrush x:Key='ForegroundBrush'>White</SolidColorBrush>
+			
+		</ResourceDictionary>
+	</ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

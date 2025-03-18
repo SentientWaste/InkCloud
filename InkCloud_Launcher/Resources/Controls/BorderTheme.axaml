@@ -1,0 +1,14 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Design.PreviewWith>
+		<Border Padding="20" Background="White">
+			<Border Classes="Shader" Margin="20" Width="400" Height="200" Background="Red"/>
+		</Border>
+	</Design.PreviewWith>
+
+	<ControlTheme TargetType="Border" x:Key="{x:Type Border}">
+		<Style Selector="^.Shader">
+			<Setter Property="BoxShadow" Value="0 0 10 4 #1A1A1A"/>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

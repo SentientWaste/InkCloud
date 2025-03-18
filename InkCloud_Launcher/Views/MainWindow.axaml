@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="750" Height="450"
+		TransparencyLevelHint="AcrylicBlur"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        x:Class="InkCloud_Launcher.Views.MainWindow"
+        Title="InkCloud_Launcher">
+	<Panel>
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="{DynamicResource LayoutBackgroundColor}"
+					TintOpacity="1"
+					MaterialOpacity="0.1" />
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50"/>
+				<RowDefinition/>
+				<RowDefinition Height="50"/>
+			</Grid.RowDefinitions>
+			
+			<!--标题栏-->
+			<Border PointerPressed="TitleBar_PointerPressed" Classes="Shader" HorizontalAlignment="Stretch" Background="{DynamicResource TitleBarBackground}">
+				<Grid Margin="20 5 20 5">
+					<TextBlock Text="InkCloud" FontWeight="Bold" FontSize="17" VerticalAlignment="Center"/>
+				</Grid>
+			</Border>
+			
+			<!--导航栏-->
+			<Border Classes="Shader" Grid.Row="2" HorizontalAlignment="Stretch" Background="{DynamicResource NavigationBarBackground}">
+
+			</Border>
+			
+			<!--主界面-->
+			<StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<TextBlock Text="Welcome InkCloud" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource BackgroundBrush}"/>
+				<Button Command="{Binding ChangeThemeCommand}" Margin="0 10 0 0" Foreground="{DynamicResource ForegroundBrush}" Background="{DynamicResource ButtonBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="45" Width="200" CornerRadius="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Change Theme"/>
+			</StackPanel>
+		</Grid>
+	</Panel>
+</Window>
