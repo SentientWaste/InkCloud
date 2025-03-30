@@ -36,13 +36,24 @@
 			
 			<!--导航栏-->
 			<Border Classes="Shader" Grid.Row="2" HorizontalAlignment="Stretch" Background="{DynamicResource NavigationBarBackground}">
-
+				<Grid HorizontalAlignment="Left" Margin="10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="40"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Button Classes="button" Width="30" CornerRadius="10" Command="{Binding ChangeThemeCommand}" Foreground="{DynamicResource ForegroundBrush}" Background="{DynamicResource ButtonBackground}">
+					</Button>
+					<TextBox Grid.Column="1" Margin="5 0 0 0" Width="200" BorderThickness="0" CornerRadius="10"/>
+				</Grid>
+			
 			</Border>
 			
 			<!--主界面-->
 			<StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<TextBlock Text="Welcome InkCloud" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource BackgroundBrush}"/>
-				<Button Command="{Binding ChangeThemeCommand}" Margin="0 10 0 0" Foreground="{DynamicResource ForegroundBrush}" Background="{DynamicResource ButtonBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="45" Width="200" CornerRadius="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Change Theme"/>
+				<Button Classes="button" Command="{Binding ChangeThemeCommand}" Margin="0 10 0 0" Foreground="{DynamicResource ForegroundBrush}" Background="{DynamicResource ButtonBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="45" Width="200" CornerRadius="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+					<TextBlock Text="Change Theme" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</Button>
 			</StackPanel>
 		</Grid>
 	</Panel>

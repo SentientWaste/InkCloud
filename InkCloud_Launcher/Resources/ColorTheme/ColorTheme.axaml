@@ -5,8 +5,8 @@
 			<!--Background-->
 			<Color x:Key='LayoutBackgroundColor'>White</Color>
 			<Color x:Key='ButtonBackground'>DarkGreen</Color>
-			<Color x:Key='TitleBarBackground'>#747474</Color>
-			<Color x:Key='NavigationBarBackground'>#747474</Color>
+			<Color x:Key='TitleBarBackground'>#C3C3C3</Color>
+			<Color x:Key='NavigationBarBackground'>#C3C3C3</Color>
 			
 			<!--Shader-->
 			<Color x:Key='Shader'>#1A1A1A</Color>
@@ -21,7 +21,7 @@
 		<ResourceDictionary x:Key="Dark">
 			<!--Background-->
 			<Color x:Key='LayoutBackgroundColor'>Black</Color>
-			<Color x:Key='ButtonBackground'>DarkGreen</Color>
+			<Color x:Key='ButtonBackground'>#363636</Color>
 			<Color x:Key='TitleBarBackground'>#292929</Color>
 			<Color x:Key='NavigationBarBackground'>#292929</Color>
 

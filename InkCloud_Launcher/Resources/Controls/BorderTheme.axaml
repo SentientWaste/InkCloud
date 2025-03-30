@@ -9,6 +9,10 @@
 	<ControlTheme TargetType="Border" x:Key="{x:Type Border}">
 		<Style Selector="^.Shader">
 			<Setter Property="BoxShadow" Value="0 0 10 4 #1A1A1A"/>
+			<Setter Property="Transitions">
+				
+			</Setter>
+			
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>
