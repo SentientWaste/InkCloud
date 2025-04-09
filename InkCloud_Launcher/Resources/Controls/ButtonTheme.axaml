@@ -1,13 +1,16 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Design.PreviewWith>
-		<Border Padding="20" Background="White">
-			<Button Classes="button" Margin="20" Width="400" Height="200" Background="Red"/>
+		<Border Width="200" Height="200" Background="White">
+			<Border Width="100" Height="100" Background="Red" CornerRadius="12" BoxShadow="0 0 6 0 black">
+				
+			</Border>
 		</Border>
 	</Design.PreviewWith>
 
 	<ControlTheme TargetType="Button" x:Key="{x:Type Button}">
 		<Style Selector="^.button">
+			<Setter Property="Padding" Value="8"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="ClipToBounds" Value="False"/>
@@ -17,14 +20,17 @@
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							Background="{TemplateBinding Background}"
-							BoxShadow="0 0 0 0 #46000000">
+							BoxShadow="{DynamicResource ButtonBoxShadow}">
 
 						<ContentPresenter VerticalAlignment="{TemplateBinding VerticalAlignment}"
-							   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-							   Content="{TemplateBinding Content}"
-							   Foreground="White"
-							   FontSize="{TemplateBinding FontSize}"
-							   FontWeight="{TemplateBinding FontWeight}"/>
+										  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+										  Padding="{TemplateBinding Padding}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Content="{TemplateBinding Content}"
+										  Foreground="White"
+										  FontSize="{TemplateBinding FontSize}"
+										  FontWeight="{TemplateBinding FontWeight}"/>
 
 						<Border.Transitions>
 							<Transitions>
@@ -51,7 +57,7 @@
 		</Style>
 
 		<Style Selector="^.button:pointerover /template/ Border#BackgroundBorder">
-			<Setter Property="BoxShadow" Value="0 0 2 4 #151515"/>
+			<Setter Property="BoxShadow" Value="{DynamicResource ButtonBoxPointerOverShadow}"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

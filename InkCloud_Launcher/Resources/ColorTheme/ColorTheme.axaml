@@ -14,9 +14,10 @@
 			<!--Font-->
 			<SolidColorBrush x:Key='BackgroundBrush'>SpringGreen</SolidColorBrush>
 			<SolidColorBrush x:Key='ForegroundBrush'>White</SolidColorBrush>
+
+			<BoxShadows x:Key="ButtonBoxShadow">0 0 8 0 #46000000</BoxShadows>
+			<BoxShadows x:Key="ButtonBoxPointerOverShadow">0 0 14 2 #66000000</BoxShadows>
 		</ResourceDictionary>
-		
-		
 		
 		<ResourceDictionary x:Key="Dark">
 			<!--Background-->
@@ -28,7 +29,10 @@
 			<!--Font-->
 			<SolidColorBrush x:Key='BackgroundBrush'>SpringGreen</SolidColorBrush>
 			<SolidColorBrush x:Key='ForegroundBrush'>White</SolidColorBrush>
-			
+
+			<BoxShadows x:Key="ButtonBoxShadow">0 0 8 0 #46FFFFFF</BoxShadows>
+			<BoxShadows x:Key="ButtonBoxPointerOverShadow">0 0 14 2 #66FFFFFF</BoxShadows>
+
 		</ResourceDictionary>
 	</ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>
