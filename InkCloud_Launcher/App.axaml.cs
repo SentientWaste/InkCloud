@@ -2,33 +2,38 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
+using InkCloud_Launcher.Services;
 using InkCloud_Launcher.Views;
 using Microsoft.Win32;
 
-namespace InkCloud_Launcher
-{
-    public partial class App : Application
-    {
-        public override void Initialize()
-        {
-            AvaloniaXamlLoader.Load(this);
+namespace InkCloud_Launcher;
+
+public sealed partial class App : Application {
+    public override void Initialize() {
+        AvaloniaXamlLoader.Load(this);
+    }
+
+    public override void RegisterServices() {
+        base.RegisterServices();
+        SettingService.InitService();
+    }
+
+    public override void OnFrameworkInitializationCompleted() {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
+            desktop.Exit += OnExit;
+            desktop.Startup += OnStartup;
+
+            desktop.MainWindow = new MainWindow();
         }
 
-        public override void OnFrameworkInitializationCompleted()
-        {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                desktop.MainWindow = new MainWindow();
-            }
+        base.OnFrameworkInitializationCompleted();
+    }
 
-			using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
-			{
-				var isDark = key?.GetValue("AppsUseLightTheme") as int? == 0;
-                if (isDark) {Application.Current.RequestedThemeVariant = ThemeVariant.Dark;}
-                else {Application.Current.RequestedThemeVariant = ThemeVariant.Light;}
-			}
+    private void OnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e) {
+        SettingService.Current?.Save();
+    }
 
-			base.OnFrameworkInitializationCompleted();
-        }
+    private void OnStartup(object? sender, ControlledApplicationLifetimeStartupEventArgs e) {
+        SettingService.Current?.Init();
     }
 }

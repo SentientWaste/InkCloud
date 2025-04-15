@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 namespace InkCloud_Launcher.Media.Transitions.Page;
 
 public sealed class DefaultPageTransitions : IPageTransition {
+    public Easing Easing { get; set; }
     public TimeSpan Duration { get; set; }
-    public Easing Easing { get; set; } = new CircularEaseInOut();
 
-    public DefaultPageTransitions(TimeSpan duration, Easing easing) {
-        Easing = easing;
+    public DefaultPageTransitions(TimeSpan duration, Easing easing = default!) {
+        Easing = easing ?? new CircularEaseInOut();
         Duration = duration;
     }
 

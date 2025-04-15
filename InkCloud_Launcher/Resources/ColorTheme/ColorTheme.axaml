@@ -7,11 +7,9 @@
 			<Color x:Key='ButtonBackground'>DarkGreen</Color>
 			<Color x:Key='TitleBarBackground'>#C3C3C3</Color>
 			<Color x:Key='NavigationBarBackground'>#C3C3C3</Color>
-			
-			<!--Shader-->
-			<Color x:Key='Shader'>#1A1A1A</Color>
-			
-			<!--Font-->
+			<Color x:Key='ButtonPointerOverBackground'>#46000000</Color>
+
+			<!--Foreground-->
 			<SolidColorBrush x:Key='BackgroundBrush'>SpringGreen</SolidColorBrush>
 			<SolidColorBrush x:Key='ForegroundBrush'>White</SolidColorBrush>
 
@@ -25,14 +23,14 @@
 			<Color x:Key='ButtonBackground'>#363636</Color>
 			<Color x:Key='TitleBarBackground'>#292929</Color>
 			<Color x:Key='NavigationBarBackground'>#292929</Color>
+			<Color x:Key='ButtonPointerOverBackground'>#46FFFFFF</Color>
 
-			<!--Font-->
+			<!--Foreground-->
 			<SolidColorBrush x:Key='BackgroundBrush'>SpringGreen</SolidColorBrush>
 			<SolidColorBrush x:Key='ForegroundBrush'>White</SolidColorBrush>
 
 			<BoxShadows x:Key="ButtonBoxShadow">0 0 8 0 #46FFFFFF</BoxShadows>
 			<BoxShadows x:Key="ButtonBoxPointerOverShadow">0 0 14 2 #66FFFFFF</BoxShadows>
-
 		</ResourceDictionary>
 	</ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

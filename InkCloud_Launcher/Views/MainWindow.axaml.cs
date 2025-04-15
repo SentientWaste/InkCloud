@@ -1,11 +1,8 @@
 using Avalonia.Animation;
-using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Styling;
 using Avalonia.Threading;
-using CommunityToolkit.Mvvm.Input;
 using InkCloud_Launcher.Media.Transitions.Page;
 using InkCloud_Launcher.ViewModel;
 using System;
@@ -19,7 +16,7 @@ public partial class MainWindow : Window {
     private CancellationTokenSource _cancellationTokenSource = new();
 
     private IPageTransition _pageTransition =
-        new DefaultPageTransitions(TimeSpan.FromSeconds(0.75), new CircularEaseInOut());
+        new DefaultPageTransitions(TimeSpan.FromSeconds(1));
 
     public MainWindow() {
         InitializeComponent();
@@ -60,7 +57,7 @@ public partial class MainWindow : Window {
     }
 
     private async Task RunAsync(object page, CancellationToken cancellationToken = default) {
-        await Dispatcher.UIThread.InvokeAsync(async () => {
+        Dispatcher.UIThread.Post(async () => {
             if (_controlType is ControlType.Control1) {
                 from.Content = page;
                 if (_pageTransition != null) {
@@ -82,7 +79,15 @@ public partial class MainWindow : Window {
 
                 _controlType = ControlType.Control1;
             }
-        }, DispatcherPriority.Background);
+        }, DispatcherPriority.Render);
+    }
+
+    private void Button_Click(object? sender, RoutedEventArgs e) {
+        Close();
+    }
+
+    private void Button_Click_1(object? sender, RoutedEventArgs e) {
+        WindowState = WindowState.Minimized;
     }
 }
 

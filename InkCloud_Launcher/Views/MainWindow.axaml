@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         mc:Ignorable="d" Width="750" Height="450"
 		TransparencyLevelHint="AcrylicBlur"
 		ExtendClientAreaChromeHints="NoChrome"
@@ -27,37 +28,58 @@
 			<ContentControl Name="to" Grid.Row="1"/>
 			
 			<!--标题栏-->
-			<Border PointerPressed="TitleBar_PointerPressed" Classes="Shader" HorizontalAlignment="Stretch" Background="{DynamicResource TitleBarBackground}">
-				<Grid Margin="20 5 20 5">
-					<TextBlock Text="InkCloud" FontWeight="Bold" FontSize="17" VerticalAlignment="Center"/>
+			<Border Padding="16 5"
+					Classes="Shader"
+					HorizontalAlignment="Stretch"
+					PointerPressed="TitleBar_PointerPressed"
+					Background="{DynamicResource TitleBarBackground}">
+				<Grid ColumnDefinitions="Auto 1* Auto Auto">
+					<TextBlock Text="InkCloud" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+					
+					<Button Grid.Column="3"
+							CornerRadius="60"
+							Click="Button_Click"
+							VerticalAlignment="Center"
+							Content="{materialIcons:MaterialIconExt Close, Size=20}"/>
+
+					<Button Grid.Column="2"
+							Margin="0 0 8 0"
+							CornerRadius="60"
+							Click="Button_Click_1"
+							VerticalAlignment="Center"
+							Content="{materialIcons:MaterialIconExt Minimize, Size=20}"/>
 				</Grid>
 			</Border>
 
 			<!--导航栏-->
-			<Border Classes="Shader" Grid.Row="2" HorizontalAlignment="Stretch" Background="{DynamicResource NavigationBarBackground}">
+			<Border Grid.Row="2"
+					Padding="16 0"
+					Classes="Shader" 
+					HorizontalAlignment="Stretch" 
+					Background="{DynamicResource NavigationBarBackground}">
 				<StackPanel Spacing="8"
 							Orientation="Horizontal"
 							VerticalAlignment="Center"
-							HorizontalAlignment="Left" Margin="10">
+							HorizontalAlignment="Left">
 					<!--<Button Classes="button" Width="30" CornerRadius="10" Command="{Binding ChangeThemeCommand}" Foreground="{DynamicResource ForegroundBrush}" Background="{DynamicResource ButtonBackground}">
 					</Button>-->
 
 					<Button Classes="button"
 							Height="30"
-							MinWidth="30"
-							CornerRadius="10"
-							Content="Home"
 							Name="home"
+							MinWidth="30"
+							Content="Home"
+							CornerRadius="10"
 							Foreground="{DynamicResource ForegroundBrush}" 
 							Background="{DynamicResource ButtonBackground}">
 					</Button>
 
 					<Button Classes="button"
+							Name="test"
 							Height="30"
 							MinWidth="30"
-							CornerRadius="10"
 							Content="Test"
-							Name="test"
+							CornerRadius="10"
 							Foreground="{DynamicResource ForegroundBrush}"
 							Background="{DynamicResource ButtonBackground}">
 					</Button>
