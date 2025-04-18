@@ -1,13 +1,48 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Design.PreviewWith>
-		<Border Padding="20" Background="White">
-			<Button Classes="button" Margin="20" Width="400" Height="200" Background="Red"/>
+		<Border Width="200" Height="200" Background="White">
+			<Button/>
 		</Border>
 	</Design.PreviewWith>
 
 	<ControlTheme TargetType="Button" x:Key="{x:Type Button}">
+		<Setter Property="Padding" Value="4"/>
+		<Setter Property="CornerRadius" Value="8"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+				<ContentPresenter Padding="{TemplateBinding Padding}"
+								  Content="{TemplateBinding Content}"
+								  FontSize="{TemplateBinding FontSize}"
+								  FontWeight="{TemplateBinding FontWeight}"
+								  Background="{TemplateBinding Background}"
+								  CornerRadius="{TemplateBinding CornerRadius}"
+								  VerticalAlignment="{TemplateBinding VerticalAlignment}"
+								  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+								  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+								  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+					<ContentPresenter.Transitions>
+						<Transitions>
+							<BrushTransition Duration="0:0:0.35"
+											 Property="Background"
+											 Easing="CircularEaseOut"/>
+						</Transitions>
+					</ContentPresenter.Transitions>
+				</ContentPresenter>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:pointerover">
+			<Setter Property="Background" Value="{DynamicResource ButtonPointerOverBackground}"/>	
+		</Style>
+		
 		<Style Selector="^.button">
+			<Setter Property="Padding" Value="8"/>
+			<Setter Property="Foreground" Value="White"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="ClipToBounds" Value="False"/>
@@ -17,14 +52,17 @@
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							Background="{TemplateBinding Background}"
-							BoxShadow="0 0 0 0 #46000000">
+							BoxShadow="{DynamicResource ButtonBoxShadow}">
 
 						<ContentPresenter VerticalAlignment="{TemplateBinding VerticalAlignment}"
-							   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-							   Content="{TemplateBinding Content}"
-							   Foreground="White"
-							   FontSize="{TemplateBinding FontSize}"
-							   FontWeight="{TemplateBinding FontWeight}"/>
+										  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+										  Padding="{TemplateBinding Padding}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Content="{TemplateBinding Content}"
+										  Foreground="{TemplateBinding Foreground}"
+										  FontSize="{TemplateBinding FontSize}"
+										  FontWeight="{TemplateBinding FontWeight}"/>
 
 						<Border.Transitions>
 							<Transitions>
@@ -51,7 +89,7 @@
 		</Style>
 
 		<Style Selector="^.button:pointerover /template/ Border#BackgroundBorder">
-			<Setter Property="BoxShadow" Value="0 0 2 4 #151515"/>
+			<Setter Property="BoxShadow" Value="{DynamicResource ButtonBoxPointerOverShadow}"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>
