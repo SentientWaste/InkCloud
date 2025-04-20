@@ -3,28 +3,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="InkCloud_Launcher.TestPage">
-	<StackPanel VerticalAlignment="Center"
-				HorizontalAlignment="Center">
-		<TextBlock Text="Welcome Test Page"
-				   FontSize="20"
-				   FontWeight="Bold"
-				   VerticalAlignment="Center"
-				   HorizontalAlignment="Center"
-				   Foreground="{DynamicResource BackgroundBrush}"/>
+             x:Class="InkCloud_Launcher.TestPage"
+			 HorizontalAlignment="Center"
+			 VerticalAlignment="Center">
+	<TextBlock Text="Welcome Test Page"
+			   FontSize="20"
+			   FontWeight="Bold"
+			   VerticalAlignment="Center"
+			   HorizontalAlignment="Center"
+			   Foreground="{DynamicResource BackgroundBrush}"/>
 
-		<Button Width="200"
-				Height="45"
-				Classes="button"
-				CornerRadius="10"
-				Margin="0 10 0 0"
-				VerticalAlignment="Stretch"
-				HorizontalAlignment="Stretch"
-				VerticalContentAlignment="Center"
-				HorizontalContentAlignment="Center"
-				Foreground="{DynamicResource ForegroundBrush}"
-				Background="{DynamicResource ButtonBackground}">
-			<TextBlock Text="Test Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-		</Button>
-	</StackPanel>
+	<Button Width="200"
+			Height="45"
+			Classes="button"
+			CornerRadius="10"
+			Margin="0 10 0 0"
+			VerticalAlignment="Stretch"
+			HorizontalAlignment="Stretch"
+			VerticalContentAlignment="Center"
+			HorizontalContentAlignment="Center"
+			Foreground="{DynamicResource ForegroundBrush}"
+			Background="{DynamicResource ButtonBackground}">
+		<TextBlock Text="Test Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	</Button>
 </UserControl>

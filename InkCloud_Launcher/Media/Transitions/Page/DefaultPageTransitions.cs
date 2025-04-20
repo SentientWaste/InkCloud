@@ -42,8 +42,8 @@ public sealed class DefaultPageTransitions : IPageTransition {
                         Cue = new Cue(0d),
                         Setters = {
                             new Setter(Visual.OpacityProperty, 1.0d),
-                            new Setter(TranslateTransform.YProperty, start),
-                            new Setter(ScaleTransform.ScaleXProperty, 1d),
+                            new Setter(TranslateTransform.YProperty, 0d),
+                            //new Setter(ScaleTransform.ScaleXProperty, 1d),
                         }
                     },
                     new KeyFrame {
@@ -56,8 +56,8 @@ public sealed class DefaultPageTransitions : IPageTransition {
                         Cue = new Cue(1d),
                         Setters = {
                             new Setter(Visual.OpacityProperty, 0.0d),
-                            new Setter(TranslateTransform.YProperty, end),
-                            new Setter(ScaleTransform.ScaleXProperty, 0.35d),
+                            new Setter(TranslateTransform.YProperty, -distance),
+                            //new Setter(ScaleTransform.ScaleXProperty, 0.35d),
                         }
                     }
                 }
@@ -68,7 +68,7 @@ public sealed class DefaultPageTransitions : IPageTransition {
 
         if (to is not null) {
             to.IsVisible = true;
-            double end = forward ? distance : -distance;
+            //double end = forward ? distance : -distance;
 
             var animation = new Animation {
                 Easing = Easing,
@@ -79,8 +79,8 @@ public sealed class DefaultPageTransitions : IPageTransition {
                         Cue = new Cue(0d),
                         Setters = {
                             new Setter(Visual.OpacityProperty, 0.0d),
-                            new Setter(TranslateTransform.YProperty, end),
-                            new Setter(ScaleTransform.ScaleXProperty, 0.35d),
+                            new Setter(TranslateTransform.YProperty, distance),
+                            //new Setter(ScaleTransform.ScaleXProperty, 0.35d),
                         }
                     },
                     new KeyFrame {
@@ -94,7 +94,7 @@ public sealed class DefaultPageTransitions : IPageTransition {
                         Setters = {
                             new Setter(Visual.OpacityProperty, 1.0d),
                             new Setter(TranslateTransform.YProperty, 0d),
-                            new Setter(ScaleTransform.ScaleXProperty, 1d),
+                            //new Setter(ScaleTransform.ScaleXProperty, 1d),
                         }
                     }
                 }

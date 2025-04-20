@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ilc="using:InkCloud_Launcher.Resources.Controls">
+	<ControlTheme TargetType="ilc:ListPageBase" x:Key="{x:Type ilc:ListPageBase}">
+		<Setter Property="Padding" Value="16"/>
+		<Setter Property="ClipToBounds" Value="False"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<ScrollViewer Name="PART_ScrollViewer"
+							  ClipToBounds="{TemplateBinding ClipToBounds}"
+							  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+							  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+							  IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+							  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+							  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+							  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+							  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+							  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+							  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
+					<ItemsPresenter Name="PART_ItemsPresenter"
+									Margin="{TemplateBinding Padding}"
+									ItemsPanel="{TemplateBinding ItemsPanel}"
+									ClipToBounds="{TemplateBinding ClipToBounds}"/>
+				</ScrollViewer>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

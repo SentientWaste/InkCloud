@@ -15,6 +15,8 @@
 				<ResourceInclude Source="/Resources/Controls/BorderTheme.axaml"/>
 				<ResourceInclude Source="/Resources/ColorTheme/ColorTheme.axaml"/>
 				<ResourceInclude Source="/Resources/Controls/ButtonTheme.axaml"/>
+				<ResourceInclude Source="/Resources/Controls/ListPageHostTheme.axaml"/>
+				<ResourceInclude Source="/Resources/Controls/ListPageBaseTheme.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
