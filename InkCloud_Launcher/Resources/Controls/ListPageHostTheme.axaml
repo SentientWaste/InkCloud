@@ -1,0 +1,14 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ilc="using:InkCloud_Launcher.Resources.Controls">
+	<ControlTheme TargetType="ilc:ListPageHost" x:Key="{x:Type ilc:ListPageHost}">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<ContentPresenter Name="PART_FromContentPresenter"/>
+					<ContentPresenter Name="PART_ToContentPresenter"/>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

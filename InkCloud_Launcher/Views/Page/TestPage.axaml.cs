@@ -1,13 +1,10 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using InkCloud_Launcher.Resources.Controls;
 
 namespace InkCloud_Launcher;
 
-public partial class TestPage : UserControl
-{
-    public TestPage()
-    {
+public partial class TestPage : ListPageBase {
+    public TestPage() {
         InitializeComponent();
     }
 }
