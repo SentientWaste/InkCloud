@@ -1,0 +1,168 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:fa="using:FluentAvalonia.UI.Controls"
+             xmlns:svc="using:InkCloudLauncher.Service"
+             xmlns:vm="using:InkCloudLauncher.ViewModel"
+             x:Class="InkCloudLauncher.View.DownloadView"
+             x:DataType="vm:MainWindowViewModel">
+  <Border Classes="downloadShell" Margin="10">
+    <Grid ColumnDefinitions="196,1,*">
+      <Grid Classes="settingsSidebar" RowDefinitions="Auto,*">
+        <Grid ColumnDefinitions="40,*" ColumnSpacing="10" Margin="0,0,0,16">
+          <Button Classes="settingsBackButton" Command="{Binding OpenPlazaPageCommand}">
+            <fa:SymbolIcon Symbol="Back" FontSize="18" />
+          </Button>
+          <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+            <TextBlock Classes="settingsNavTitle" Text="下载" />
+            <TextBlock Classes="settingsNavSubtitle" Text="资源中心" />
+          </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Spacing="6">
+          <Border Classes="settingsNavShadow" Classes.active="{Binding IsGameDownloadSelected}">
+            <Button Classes="settingsNavItem"
+                    Classes.active="{Binding IsGameDownloadSelected}"
+                    Command="{Binding SelectDownloadSectionCommand}"
+                    CommandParameter="Game">
+              <Grid ColumnDefinitions="34,*">
+                <fa:SymbolIcon Symbol="Download" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" Spacing="1" VerticalAlignment="Center">
+                  <TextBlock Classes="settingsNavText" Text="游戏下载" />
+                  <TextBlock Classes="settingsNavHint" Text="原版与加载器" />
+                </StackPanel>
+              </Grid>
+            </Button>
+          </Border>
+
+          <Border Classes="settingsNavShadow" Classes.active="{Binding IsExtraDownloadSelected}">
+            <Button Classes="settingsNavItem"
+                    Classes.active="{Binding IsExtraDownloadSelected}"
+                    Command="{Binding SelectDownloadSectionCommand}"
+                    CommandParameter="Extra">
+              <Grid ColumnDefinitions="34,*">
+                <fa:SymbolIcon Symbol="Setting" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" Spacing="1" VerticalAlignment="Center">
+                  <TextBlock Classes="settingsNavText" Text="杂项下载" />
+                  <TextBlock Classes="settingsNavHint" Text="Java 与工具" />
+                </StackPanel>
+              </Grid>
+            </Button>
+          </Border>
+        </StackPanel>
+      </Grid>
+
+      <Border Grid.Column="1" Classes="settingsDivider" />
+
+      <Grid Grid.Column="2" Margin="24,20,20,18">
+        <ScrollViewer x:Name="DownloadScrollViewer" VerticalScrollBarVisibility="Auto">
+          <StackPanel x:Name="DownloadContentHost"
+                      Spacing="12"
+                      Opacity="{Binding DownloadContentOpacity}"
+                      Margin="{Binding DownloadContentMargin}">
+            <StackPanel Spacing="8" IsVisible="{Binding IsGameVersionListVisible}">
+              <TextBlock Classes="settingsSectionTitle" Text="选择游戏版本" />
+              <Border Classes="downloadSearch">
+                <Grid RowDefinitions="Auto,Auto" RowSpacing="8">
+                  <TextBox Classes="settingsInput"
+                           Height="36"
+                           Text="{Binding GameVersionSearchText}"
+                           Watermark="搜索版本，例如 1.21、1.12.2" />
+                  <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8">
+                    <Button Classes="versionFilterButton"
+                            Classes.active="{Binding IsReleaseVersionFilterSelected}"
+                            Command="{Binding SelectGameVersionFilterCommand}"
+                            CommandParameter="正式版"
+                            Content="正式版" />
+                    <Button Classes="versionFilterButton"
+                            Classes.active="{Binding IsSnapshotVersionFilterSelected}"
+                            Command="{Binding SelectGameVersionFilterCommand}"
+                            CommandParameter="预览版"
+                            Content="预览版" />
+                    <Button Classes="versionFilterButton"
+                            Classes.active="{Binding IsOldVersionFilterSelected}"
+                            Command="{Binding SelectGameVersionFilterCommand}"
+                            CommandParameter="远古版"
+                            Content="远古版" />
+                    <Button Classes="versionFilterButton"
+                            Classes.active="{Binding IsAllVersionFilterSelected}"
+                            Command="{Binding SelectGameVersionFilterCommand}"
+                            CommandParameter="全部"
+                            Content="全部" />
+                  </StackPanel>
+                </Grid>
+              </Border>
+              <TextBlock Classes="settingsGroupHint" Text="{Binding TaskStatus}" />
+              <ListBox x:Name="GameVersionList"
+                       Classes="versionList"
+                       ItemsSource="{Binding OnlineGameVersions}"
+                       SelectionChanged="OnGameVersionSelected">
+                <ListBox.ItemTemplate>
+                  <DataTemplate x:DataType="svc:MinecraftVersionItem">
+                    <Grid ColumnDefinitions="*,Auto,Auto" Height="54" ColumnSpacing="10">
+                      <TextBlock Classes="settingsGroupTitle" Text="{Binding Id}" VerticalAlignment="Center" />
+                      <Border Grid.Column="1" Classes="versionTag" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding DisplayType}" />
+                      </Border>
+                      <TextBlock Grid.Column="2" Classes="versionArrow" Text=">" VerticalAlignment="Center" />
+                    </Grid>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+            </StackPanel>
+
+            <StackPanel Spacing="10" IsVisible="{Binding IsGameVersionConfigVisible}">
+              <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                <Button Classes="settingsBackButton" Command="{Binding BackGameVersionListCommand}">
+                  <fa:SymbolIcon Symbol="Back" FontSize="17" />
+                </Button>
+                <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                  <TextBlock Classes="settingsSectionTitle" Text="{Binding SelectedGameVersion}" />
+                  <TextBlock Classes="settingsGroupHint" Text="展开组件并选择具体版本。" />
+                </StackPanel>
+              </Grid>
+
+              <Expander Classes="downloadExpander" Header="Forge">
+                <ListBox Classes="loaderList"
+                         ItemsSource="{Binding ForgeVersions}"
+                         SelectedItem="{Binding SelectedForgeVersion}" />
+              </Expander>
+
+              <Expander Classes="downloadExpander" Header="Fabric">
+                <ListBox Classes="loaderList"
+                         ItemsSource="{Binding FabricVersions}"
+                         SelectedItem="{Binding SelectedFabricVersion}" />
+              </Expander>
+
+              <Expander Classes="downloadExpander" Header="OptiFine">
+                <ListBox Classes="loaderList"
+                         ItemsSource="{Binding OptifineVersions}"
+                         SelectedItem="{Binding SelectedOptifineVersion}" />
+              </Expander>
+
+              <TextBlock Classes="settingsGroupHint" Text="{Binding TaskStatus}" />
+              <Button Classes="downloadActionButton"
+                      HorizontalAlignment="Right"
+                      Command="{Binding InstallSelectedGameCommand}"
+                      Content="确定下载" />
+            </StackPanel>
+
+            <StackPanel Spacing="10" IsVisible="{Binding IsExtraDownloadSelected}">
+              <TextBlock Classes="settingsSectionTitle" Text="杂项下载" />
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="Java 运行时" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="自动补全启动所需的 Java 版本。" />
+                  <Button Grid.Column="1"
+                          Grid.RowSpan="2"
+                          Classes="settingsActionButton"
+                          Command="{Binding InstallJavaRuntimeCommand}"
+                          Content="获取" />
+                </Grid>
+              </Border>
+            </StackPanel>
+          </StackPanel>
+        </ScrollViewer>
+      </Grid>
+    </Grid>
+  </Border>
+</UserControl>

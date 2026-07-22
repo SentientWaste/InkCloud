@@ -1,0 +1,97 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+        xmlns:view="using:InkCloudLauncher.View"
+        xmlns:vm="using:InkCloudLauncher.ViewModel"
+        x:Class="InkCloudLauncher.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Width="840"
+        Height="520"
+        MinWidth="840"
+        MinHeight="520"
+        SystemDecorations="None"
+        CanResize="False"
+        Background="Transparent"
+        Title="InkCloud">
+  <Border Classes="shell">
+    <Grid PointerWheelChanged="OnWheelChanged">
+      <Grid RowDefinitions="48,*">
+        <Grid Grid.Row="1" Margin="18,8,18,18">
+          <Border x:Name="MicaLayer" Classes="micaLayer" Opacity="{Binding MicaOpacity}"/>
+
+          <Border x:Name="HomeLayer"
+                  Classes="homeLayer"
+                  Opacity="{Binding HomeOpacity}"
+                  Margin="{Binding HomeMargin}">
+            <Button Classes="primaryButton"
+                    Command="{Binding OpenNavigationCommand}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+              前往广场
+            </Button>
+          </Border>
+
+          <Border x:Name="PlazaLayer"
+                  Classes="plazaLayer"
+                  Opacity="{Binding PlazaOpacity}"
+                  IsVisible="{Binding IsNavigationLayerVisible}"
+                  Margin="{Binding PlazaMargin}">
+            <Grid>
+              <view:PlazaView x:Name="PlazaPageHost"
+                              IsVisible="{Binding IsPlazaPageVisible}"
+                              Opacity="{Binding PlazaPageOpacity}"
+                              Margin="{Binding PlazaPageMargin}"/>
+              <view:SettingView x:Name="SettingPageHost"
+                                IsVisible="{Binding IsSettingPageVisible}"
+                                Opacity="{Binding SettingPageOpacity}"
+                                Margin="{Binding SettingPageMargin}"/>
+              <view:DownloadView x:Name="DownloadPageHost"
+                                 IsVisible="{Binding IsDownloadPageVisible}"
+                                 Opacity="{Binding DownloadPageOpacity}"
+                                 Margin="{Binding DownloadPageMargin}"/>
+            </Grid>
+          </Border>
+        </Grid>
+      </Grid>
+
+      <Grid x:Name="DragHandle"
+            Classes="bottomHotZone"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            IsVisible="{Binding IsDragHandleVisible}"
+            Opacity="{Binding DragHandleOpacity}"
+            Margin="{Binding DragHandleMargin}"
+            PointerEntered="OnHandleEntered"
+            PointerExited="OnHandleExited"
+            PointerPressed="OnHandlePressed"
+            PointerMoved="OnHandleMoved"
+            PointerReleased="OnHandleReleased">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,13" Spacing="6">
+          <TextBlock x:Name="HandleText" Text="向上拖动" Classes="caption"/>
+          <Border Classes="scrollPill"/>
+        </StackPanel>
+      </Grid>
+
+      <Grid Classes="titleBar"
+            ColumnDefinitions="*,Auto"
+            Panel.ZIndex="10"
+            Height="48"
+            VerticalAlignment="Top">
+        <Grid Background="Transparent" PointerPressed="DragWindow">
+          <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Border Classes="titleMark"/>
+            <TextBlock Text="InkCloud" Classes="titleText"/>
+          </StackPanel>
+        </Grid>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+          <Button Classes="windowButton" Click="MinimizeWindow">
+            <fa:FontIcon Glyph="&#xE921;" FontFamily="Segoe Fluent Icons" FontSize="12"/>
+          </Button>
+          <Button Classes="windowButton close" Click="CloseWindow">
+            <fa:FontIcon Glyph="&#xE8BB;" FontFamily="Segoe Fluent Icons" FontSize="12"/>
+          </Button>
+        </StackPanel>
+      </Grid>
+    </Grid>
+  </Border>
+</Window>

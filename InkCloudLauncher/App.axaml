@@ -1,0 +1,10 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
+             x:Class="InkCloudLauncher.App"
+             RequestedThemeVariant="Light">
+  <Application.Styles>
+    <styling:FluentAvaloniaTheme PreferSystemTheme="False" PreferUserAccentColor="False" />
+    <StyleInclude Source="avares://InkCloudLauncher/Styles/NeuralNavigation.axaml"/>
+  </Application.Styles>
+</Application>

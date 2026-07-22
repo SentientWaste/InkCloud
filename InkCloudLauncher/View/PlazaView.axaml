@@ -1,0 +1,117 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:vm="using:InkCloudLauncher.ViewModel"
+             x:Class="InkCloudLauncher.View.PlazaView"
+             x:DataType="vm:MainWindowViewModel">
+  <Grid>
+    <Viewbox Width="714"
+             Height="288"
+             Stretch="Uniform"
+             HorizontalAlignment="Center"
+             VerticalAlignment="Center">
+      <Canvas Width="792" Height="320">
+        <Button Canvas.Left="0"
+                Canvas.Top="0"
+                Width="148"
+                Height="148"
+                Classes="navTile glassBlue home"
+                Command="{Binding CloseNavigationCommand}">
+          <StackPanel Spacing="12"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+            <fa:SymbolIcon Symbol="Home" FontSize="42"/>
+            <TextBlock Classes="tileTitle" Text="主页"/>
+          </StackPanel>
+        </Button>
+
+        <Button Canvas.Left="156"
+                Canvas.Top="0"
+                Width="148"
+                Height="148"
+                Classes="navTile glassBlue lobby">
+          <StackPanel Spacing="12"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+            <fa:SymbolIcon Symbol="Globe" FontSize="42"/>
+            <TextBlock Classes="tileTitle" Text="联机大厅"/>
+          </StackPanel>
+        </Button>
+
+        <Button Canvas.Left="0"
+                Canvas.Top="156"
+                Width="304"
+                Height="164"
+                Classes="navTile glassBlue settings"
+                Command="{Binding OpenSettingPageCommand}">
+          <Grid ColumnDefinitions="Auto,*" ColumnSpacing="18">
+            <fa:SymbolIcon Symbol="Setting"
+                           FontSize="66"
+                           Opacity=".92"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="1"
+                        Spacing="6"
+                        VerticalAlignment="Center">
+              <TextBlock Classes="tileHeading" Text="本体设置"/>
+              <TextBlock Classes="tileCaption onAccent" Text="外观、下载、启动参数"/>
+            </StackPanel>
+          </Grid>
+        </Button>
+
+        <Button Canvas.Left="320"
+                Canvas.Top="0"
+                Width="244"
+                Height="242"
+                Classes="navTile glassRed news">
+          <Grid RowDefinitions="Auto,*,Auto">
+            <TextBlock Classes="tileCaption onAccent" Text="InkCloud 资讯中心"/>
+            <StackPanel Grid.Row="1"
+                        Spacing="14"
+                        VerticalAlignment="Center">
+              <TextBlock Classes="tileHero" Text="探索启动器"/>
+              <TextBlock Classes="tileBody" Text="浏览核心、资源、账号与联机入口。"/>
+            </StackPanel>
+            <TextBlock Grid.Row="2" Classes="tileCaption onAccent" Text="广场导航"/>
+          </Grid>
+        </Button>
+
+        <Button Canvas.Left="580"
+                Canvas.Top="0"
+                Width="212"
+                Height="242"
+                Classes="navTile glassBlue install"
+                Command="{Binding OpenDownloadPageCommand}">
+          <Grid RowDefinitions="Auto,*,Auto">
+            <fa:SymbolIcon Symbol="Download"
+                           FontSize="58"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"/>
+            <StackPanel Grid.Row="2" Spacing="8">
+              <TextBlock Classes="tileHero" Text="安装游戏"/>
+              <TextBlock Classes="tileBody" Text="原版、Forge、Fabric"/>
+            </StackPanel>
+          </Grid>
+        </Button>
+
+        <Button Canvas.Left="320"
+                Canvas.Top="258"
+                Width="472"
+                Height="62"
+                Classes="navTile glassGreen launch"
+                Command="{Binding LaunchGameCommand}">
+          <Grid ColumnDefinitions="*,Auto">
+            <StackPanel VerticalAlignment="Center" Spacing="2">
+              <TextBlock Classes="tileHeading" Text="启动游戏"/>
+              <TextBlock Classes="tileCaption onAccent" Text="尚未选择核心"/>
+            </StackPanel>
+            <fa:SymbolIcon Grid.Column="1"
+                           Symbol="Play"
+                           FontSize="36"
+                           VerticalAlignment="Center"/>
+          </Grid>
+        </Button>
+      </Canvas>
+    </Viewbox>
+  </Grid>
+</UserControl>

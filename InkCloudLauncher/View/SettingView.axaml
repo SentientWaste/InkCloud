@@ -1,0 +1,285 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:fa="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:InkCloudLauncher.ViewModel"
+             x:Class="InkCloudLauncher.View.SettingView"
+             x:DataType="vm:MainWindowViewModel">
+  <Border Classes="settingsShell" Margin="10">
+    <Grid ColumnDefinitions="196,1,*">
+      <Grid Classes="settingsSidebar" RowDefinitions="Auto,*">
+        <Grid ColumnDefinitions="40,*" ColumnSpacing="10" Margin="0,0,0,16">
+          <Button Classes="settingsBackButton"
+                  Command="{Binding OpenPlazaPageCommand}">
+            <fa:SymbolIcon Symbol="Back" FontSize="18" />
+          </Button>
+
+          <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+            <TextBlock Classes="settingsNavTitle" Text="设置" />
+            <TextBlock Classes="settingsNavSubtitle" Text="InkCloud Launcher" />
+          </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Spacing="6">
+          <Border Classes="settingsNavShadow" Classes.active="{Binding IsDownloadSettingsHighlighted}">
+            <Button Classes="settingsNavItem"
+                    Classes.active="{Binding IsDownloadSettingsHighlighted}"
+                    PointerPressed="OnSettingNavPressed"
+                    PointerCaptureLost="OnSettingNavCaptureLost"
+                    Command="{Binding SelectSettingSectionCommand}"
+                    CommandParameter="Download">
+            <Grid ColumnDefinitions="34,*">
+              <fa:SymbolIcon Symbol="Download" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="1">
+                <TextBlock Classes="settingsNavText" Text="下载" />
+                <TextBlock Classes="settingsNavHint" Text="线程、镜像源与校验" />
+              </StackPanel>
+            </Grid>
+            </Button>
+          </Border>
+
+          <Border Classes="settingsNavShadow" Classes.active="{Binding IsLaunchSettingsHighlighted}">
+            <Button Classes="settingsNavItem"
+                    Classes.active="{Binding IsLaunchSettingsHighlighted}"
+                    PointerPressed="OnSettingNavPressed"
+                    PointerCaptureLost="OnSettingNavCaptureLost"
+                    Command="{Binding SelectSettingSectionCommand}"
+                    CommandParameter="Launch">
+            <Grid ColumnDefinitions="34,*">
+              <fa:SymbolIcon Symbol="Play" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="1">
+                <TextBlock Classes="settingsNavText" Text="启动" />
+                <TextBlock Classes="settingsNavHint" Text="内存、启动行为" />
+              </StackPanel>
+            </Grid>
+            </Button>
+          </Border>
+
+          <Border Classes="settingsNavShadow" Classes.active="{Binding IsJavaSettingsHighlighted}">
+            <Button Classes="settingsNavItem"
+                    Classes.active="{Binding IsJavaSettingsHighlighted}"
+                    PointerPressed="OnSettingNavPressed"
+                    PointerCaptureLost="OnSettingNavCaptureLost"
+                    Command="{Binding SelectSettingSectionCommand}"
+                    CommandParameter="Java">
+            <Grid ColumnDefinitions="34,*">
+              <fa:SymbolIcon Symbol="Code" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="1">
+                <TextBlock Classes="settingsNavText" Text="Java" />
+                <TextBlock Classes="settingsNavHint" Text="运行时与路径" />
+              </StackPanel>
+            </Grid>
+            </Button>
+          </Border>
+
+          <Border Classes="settingsNavShadow" Classes.active="{Binding IsWindowSettingsHighlighted}">
+            <Button Classes="settingsNavItem"
+                    Classes.active="{Binding IsWindowSettingsHighlighted}"
+                    PointerPressed="OnSettingNavPressed"
+                    PointerCaptureLost="OnSettingNavCaptureLost"
+                    Command="{Binding SelectSettingSectionCommand}"
+                    CommandParameter="Window">
+            <Grid ColumnDefinitions="34,*">
+              <fa:SymbolIcon Symbol="FullScreen" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="1">
+                <TextBlock Classes="settingsNavText" Text="窗口" />
+                <TextBlock Classes="settingsNavHint" Text="尺寸、动画与日志" />
+              </StackPanel>
+            </Grid>
+            </Button>
+          </Border>
+        </StackPanel>
+      </Grid>
+
+      <Border Grid.Column="1" Classes="settingsDivider" />
+
+      <Grid Grid.Column="2" Margin="24,20,20,18">
+        <ScrollViewer x:Name="SettingScrollViewer"
+                      VerticalScrollBarVisibility="Auto"
+                      PointerWheelChanged="OnSettingScrollWheel">
+          <StackPanel x:Name="SettingContentHost"
+                      Spacing="8"
+                      Opacity="{Binding SettingContentOpacity}"
+                      Margin="{Binding SettingContentMargin}">
+            <StackPanel Spacing="8" IsVisible="{Binding IsDownloadSettingsSelected}">
+              <TextBlock Classes="settingsSectionTitle" Text="下载设置" />
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="下载线程" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="控制同时下载的任务数量。" />
+                  <NumericUpDown Grid.Column="1" Grid.RowSpan="2" Classes="settingsInput" Width="150" HorizontalAlignment="Right" Minimum="1" Maximum="64" Value="16" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="下载源" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="选择资源与版本文件的镜像来源。" />
+                  <ComboBox Grid.Column="1" Grid.RowSpan="2" Classes="settingsInput" Width="210" HorizontalAlignment="Right" SelectedIndex="0">
+                    <ComboBoxItem Content="BMCLAPI 镜像" />
+                    <ComboBoxItem Content="官方源" />
+                    <ComboBoxItem Content="自动选择最快" />
+                  </ComboBox>
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="自动重试" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="网络波动时自动重新下载失败文件。" />
+                  <ToggleSwitch Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" IsChecked="True" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="文件校验" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="下载完成后验证哈希，减少损坏资源。" />
+                  <ToggleSwitch Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" IsChecked="True" />
+                </Grid>
+              </Border>
+            </StackPanel>
+
+            <StackPanel Spacing="8" IsVisible="{Binding IsLaunchSettingsSelected}">
+              <TextBlock Classes="settingsSectionTitle" Text="启动设置" />
+
+              <Border Classes="settingsGroup">
+                <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+                  <TextBlock Classes="settingsGroupTitle" Text="启动内存" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="建议为整合包保留 4096 MB 以上内存。" />
+                  <Slider Grid.Row="2" Minimum="1024" Maximum="16384" Value="4096" TickFrequency="1024" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="启动前检查资源" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="进入游戏前检查缺失库与资源文件。" />
+                  <ToggleSwitch Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" IsChecked="True" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="启动后隐藏启动器" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="游戏窗口出现后自动收起启动器。" />
+                  <ToggleSwitch Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+                  <TextBlock Classes="settingsGroupTitle" Text="额外 JVM 参数" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="高级用户可在这里追加 JVM 启动参数。" />
+                  <TextBox Grid.Row="2" Classes="settingsInput" Text="-XX:+UseG1GC" />
+                </Grid>
+              </Border>
+            </StackPanel>
+
+            <StackPanel Spacing="8" IsVisible="{Binding IsJavaSettingsSelected}">
+              <TextBlock Classes="settingsSectionTitle" Text="Java 设置" />
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,260" RowDefinitions="Auto,Auto" RowSpacing="6">
+                  <TextBlock Classes="settingsGroupTitle" Text="Minecraft 文件夹" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="留空或默认时使用系统 .minecraft 文件夹。" />
+                  <TextBox Grid.Column="1"
+                           Grid.RowSpan="2"
+                           Classes="settingsInput"
+                           Width="240"
+                           Height="36"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Text="{Binding MinecraftFolder}" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="Java 运行时" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="为不同版本选择合适的 Java。" />
+                  <ComboBox Grid.Column="1" Grid.RowSpan="2" Classes="settingsInput" Width="210" HorizontalAlignment="Right" SelectedIndex="0">
+                    <ComboBoxItem Content="自动选择" />
+                    <ComboBoxItem Content="Java 21" />
+                    <ComboBoxItem Content="Java 17" />
+                    <ComboBoxItem Content="Java 8" />
+                  </ComboBox>
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="自动扫描 Java" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="启动器打开时自动寻找本机 Java。" />
+                  <ToggleSwitch Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" IsChecked="True" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,260" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="Java 路径" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="手动选择 javaw.exe 所在位置。" />
+                  <TextBox Grid.Column="1"
+                           Grid.RowSpan="2"
+                           Classes="settingsInput"
+                           Width="240"
+                           Height="36"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Text="{Binding JavaPath}" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="忽略版本警告" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="允许使用非推荐 Java 版本启动游戏。" />
+                  <ToggleSwitch Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" />
+                </Grid>
+              </Border>
+            </StackPanel>
+
+            <StackPanel Spacing="8" IsVisible="{Binding IsWindowSettingsSelected}">
+              <TextBlock Classes="settingsSectionTitle" Text="窗口设置" />
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="游戏窗口尺寸" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="默认启动时使用的游戏分辨率。" />
+                  <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <NumericUpDown Classes="settingsInput" Width="86" Minimum="640" Maximum="7680" Value="1280" />
+                    <NumericUpDown Classes="settingsInput" Width="86" Minimum="480" Maximum="4320" Value="720" />
+                  </StackPanel>
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="全屏启动" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="启动游戏后直接进入全屏模式。" />
+                  <ToggleSwitch Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="启动器窗口动画" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="保留页面过渡与窗口动效。" />
+                  <ToggleSwitch Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" IsChecked="True" />
+                </Grid>
+              </Border>
+
+              <Border Classes="settingsGroup">
+                <Grid ColumnDefinitions="*,230" RowDefinitions="Auto,Auto" RowSpacing="4">
+                  <TextBlock Classes="settingsGroupTitle" Text="显示启动日志窗口" />
+                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="启动时展示游戏输出日志。" />
+                  <ToggleSwitch Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" />
+                </Grid>
+              </Border>
+            </StackPanel>
+          </StackPanel>
+        </ScrollViewer>
+      </Grid>
+    </Grid>
+  </Border>
+</UserControl>
