@@ -4,7 +4,7 @@ using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using InkCloudLauncher.Service;
+using InkCloudLauncher.Models;
 using InkCloudLauncher.ViewModel;
 
 namespace InkCloudLauncher.View;
@@ -17,11 +17,13 @@ public partial class DownloadView : UserControl
     {
         InitializeComponent();
 
-        DownloadContentHost.Transitions = new Transitions
-        {
-            new DoubleTransition { Property = OpacityProperty, Duration = TimeSpan.FromMilliseconds(240), Easing = new CubicEaseOut() },
-            new ThicknessTransition { Property = MarginProperty, Duration = TimeSpan.FromMilliseconds(340), Easing = new ExponentialEaseOut() }
-        };
+        DownloadContentHost.Transitions = [
+            new DoubleTransition
+                { Property = OpacityProperty, Duration = TimeSpan.FromMilliseconds(240), Easing = new CubicEaseOut() },
+            new ThicknessTransition {
+                Property = MarginProperty, Duration = TimeSpan.FromMilliseconds(340), Easing = new ExponentialEaseOut()
+            }
+        ];
 
         DataContextChanged += (_, _) =>
         {

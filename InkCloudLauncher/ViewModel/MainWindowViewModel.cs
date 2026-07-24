@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using InkCloudLauncher.Models;
 using InkCloudLauncher.Service;
 
 namespace InkCloudLauncher.ViewModel;
@@ -85,13 +86,13 @@ public partial class MainWindowViewModel : ObservableObject
     private string playerName = "InkCloud";
 
     [ObservableProperty]
-    private string selectedForgeVersion = MinecraftService.None;
+    private string selectedForgeVersion = InstallService.None;
 
     [ObservableProperty]
-    private string selectedFabricVersion = MinecraftService.None;
+    private string selectedFabricVersion = InstallService.None;
 
     [ObservableProperty]
-    private string selectedOptifineVersion = MinecraftService.None;
+    private string selectedOptifineVersion = InstallService.None;
 
     [ObservableProperty]
     private string selectedLaunchVersion = string.Empty;
@@ -137,9 +138,9 @@ public partial class MainWindowViewModel : ObservableObject
 
     public ObservableCollection<MinecraftVersionItem> OnlineGameVersions { get; } = [];
     public ObservableCollection<string> InstalledVersions { get; } = [];
-    public ObservableCollection<string> ForgeVersions { get; } = [MinecraftService.None];
-    public ObservableCollection<string> FabricVersions { get; } = [MinecraftService.None];
-    public ObservableCollection<string> OptifineVersions { get; } = [MinecraftService.None];
+    public ObservableCollection<string> ForgeVersions { get; } = [InstallService.None];
+    public ObservableCollection<string> FabricVersions { get; } = [InstallService.None];
+    public ObservableCollection<string> OptifineVersions { get; } = [InstallService.None];
     public bool IsReleaseVersionFilterSelected => SelectedGameVersionFilter == "正式版";
     public bool IsSnapshotVersionFilterSelected => SelectedGameVersionFilter == "预览版";
     public bool IsOldVersionFilterSelected => SelectedGameVersionFilter == "远古版";
@@ -353,9 +354,9 @@ public partial class MainWindowViewModel : ObservableObject
         await Task.Delay(140);
 
         SelectedGameVersion = version;
-        SelectedForgeVersion = MinecraftService.None;
-        SelectedFabricVersion = MinecraftService.None;
-        SelectedOptifineVersion = MinecraftService.None;
+        SelectedForgeVersion = InstallService.None;
+        SelectedFabricVersion = InstallService.None;
+        SelectedOptifineVersion = InstallService.None;
         DownloadContentMargin = new Thickness(22, 0, -22, 0);
         DownloadContentOpacity = 1;
         DownloadContentMargin = new Thickness(0);
@@ -433,7 +434,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         await RunMinecraftTaskAsync($"正在安装 {SelectedGameVersion}...", async token =>
         {
-            var installedId = await _minecraft.InstallAsync(MinecraftFolder, options, token);
+            var installedId = await InstallService.Instance.InstallAsync(MinecraftFolder, options, token);
             RefreshInstalledVersions();
             SelectedLaunchVersion = installedId;
             TaskStatus = $"安装完成：{installedId}";
@@ -445,7 +446,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         await RunMinecraftTaskAsync("正在启动游戏...", async token =>
         {
-            await _minecraft.LaunchAsync(MinecraftFolder, new LaunchOptions(
+            await _minecraft.LaunchAsync(MinecraftFolder, new LaunchOption(
                 SelectedLaunchVersion,
                 JavaPath,
                 PlayerName,
@@ -463,7 +464,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         await RunMinecraftTaskAsync("正在安装 Java 运行时...", async token =>
         {
-            JavaPath = await _minecraft.InstallJavaAsync(MinecraftFolder, token);
+            JavaPath = await InstallService.Instance.InstallJavaAsync(MinecraftFolder, token);
             TaskStatus = "Java 运行时已安装";
         });
     }
@@ -473,26 +474,26 @@ public partial class MainWindowViewModel : ObservableObject
         await RunMinecraftTaskAsync("正在读取加载器版本...", async token =>
         {
             ForgeVersions.Clear();
-            foreach (var item in await ReadLoaderVersionsAsync(() => _minecraft.GetForgeVersionsAsync(version, token)))
+            foreach (var item in await ReadLoaderVersionsAsync(() => InstallService.GetForgeVersionsAsync(version, token)))
             {
                 ForgeVersions.Add(item);
             }
 
             FabricVersions.Clear();
-            foreach (var item in await ReadLoaderVersionsAsync(() => _minecraft.GetFabricVersionsAsync(version, token)))
+            foreach (var item in await ReadLoaderVersionsAsync(() => InstallService.GetFabricVersionsAsync(version, token)))
             {
                 FabricVersions.Add(item);
             }
 
             OptifineVersions.Clear();
-            foreach (var item in await ReadLoaderVersionsAsync(() => _minecraft.GetOptifineVersionsAsync(version, token)))
+            foreach (var item in await ReadLoaderVersionsAsync(() => InstallService.GetOptifineVersionsAsync(version, token)))
             {
                 OptifineVersions.Add(item);
             }
 
-            SelectedForgeVersion = ForgeVersions.FirstOrDefault() ?? MinecraftService.None;
-            SelectedFabricVersion = FabricVersions.FirstOrDefault() ?? MinecraftService.None;
-            SelectedOptifineVersion = OptifineVersions.FirstOrDefault() ?? MinecraftService.None;
+            SelectedForgeVersion = ForgeVersions.FirstOrDefault() ?? InstallService.None;
+            SelectedFabricVersion = FabricVersions.FirstOrDefault() ?? InstallService.None;
+            SelectedOptifineVersion = OptifineVersions.FirstOrDefault() ?? InstallService.None;
             TaskStatus = $"加载器版本已读取：Forge {Math.Max(0, ForgeVersions.Count - 1)} / Fabric {Math.Max(0, FabricVersions.Count - 1)} / OptiFine {Math.Max(0, OptifineVersions.Count - 1)}";
         });
     }
@@ -502,11 +503,11 @@ public partial class MainWindowViewModel : ObservableObject
         try
         {
             var versions = await read();
-            return versions.Count == 0 ? [MinecraftService.None] : versions.ToArray();
+            return versions.Count == 0 ? [InstallService.None] : versions.ToArray();
         }
         catch
         {
-            return [MinecraftService.None];
+            return [InstallService.None];
         }
     }
 

@@ -1,7 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:fa="using:FluentAvalonia.UI.Controls"
-             xmlns:svc="using:InkCloudLauncher.Service"
+             xmlns:im="using:InkCloudLauncher.Models"
              xmlns:vm="using:InkCloudLauncher.ViewModel"
              x:Class="InkCloudLauncher.View.DownloadView"
              x:DataType="vm:MainWindowViewModel">
@@ -97,7 +97,7 @@
                        ItemsSource="{Binding OnlineGameVersions}"
                        SelectionChanged="OnGameVersionSelected">
                 <ListBox.ItemTemplate>
-                  <DataTemplate x:DataType="svc:MinecraftVersionItem">
+                  <DataTemplate x:DataType="im:MinecraftVersionItem">
                     <Grid ColumnDefinitions="*,Auto,Auto" Height="54" ColumnSpacing="10">
                       <TextBlock Classes="settingsGroupTitle" Text="{Binding Id}" VerticalAlignment="Center" />
                       <Border Grid.Column="1" Classes="versionTag" VerticalAlignment="Center">
