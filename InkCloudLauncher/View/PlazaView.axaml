@@ -5,12 +5,10 @@
              x:Class="InkCloudLauncher.View.PlazaView"
              x:DataType="vm:MainWindowViewModel">
   <Grid>
-    <Viewbox Width="714"
-             Height="288"
-             Stretch="Uniform"
+    <Viewbox Stretch="Uniform"
              HorizontalAlignment="Center"
              VerticalAlignment="Center">
-      <Canvas Width="792" Height="320">
+      <Canvas Margin="8" Width="792" Height="320">
         <Button Canvas.Left="0"
                 Canvas.Top="0"
                 Width="148"
@@ -63,6 +61,7 @@
                 Canvas.Top="0"
                 Width="244"
                 Height="242"
+                Padding="16 14"
                 Classes="navTile glassRed news">
           <Grid RowDefinitions="Auto,*,Auto">
             <TextBlock Classes="tileCaption onAccent" Text="InkCloud 资讯中心"/>
@@ -80,6 +79,7 @@
                 Canvas.Top="0"
                 Width="212"
                 Height="242"
+                Padding="16 14"
                 Classes="navTile glassBlue install"
                 Command="{Binding OpenDownloadPageCommand}">
           <Grid RowDefinitions="Auto,*,Auto">
@@ -98,6 +98,7 @@
                 Canvas.Top="258"
                 Width="472"
                 Height="62"
+                Padding="16 0"
                 Classes="navTile glassGreen launch"
                 Command="{Binding LaunchGameCommand}">
           <Grid ColumnDefinitions="*,Auto">

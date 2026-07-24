@@ -9,9 +9,9 @@
         Height="520"
         MinWidth="840"
         MinHeight="520"
-        SystemDecorations="None"
-        CanResize="False"
-        Background="Transparent"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaToDecorationsHint="True"
+        SystemDecorations="Full"
         Title="InkCloud">
   <Border Classes="shell">
     <Grid PointerWheelChanged="OnWheelChanged">
