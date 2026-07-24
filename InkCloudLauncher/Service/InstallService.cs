@@ -85,12 +85,20 @@ public sealed class InstallService {
         return selectedId;
     }
 
+    //TODO: Java 实际暂不可用
     public async Task<string> InstallJavaAsync(string? configuredFolder, CancellationToken token)
     {
         var folder = Path.Combine(MinecraftService.Instance.GetMinecraftFolder(configuredFolder), "runtime");
         Directory.CreateDirectory(folder);
         await JavaInstaller.Create(folder).InstallAsync(token);
         return folder;
+    }
+
+    public static async Task<IReadOnlyList<MinecraftVersionItem>> GetVersionsAsync(CancellationToken token) {
+            var entries = await VanillaInstaller.EnumerableMinecraftAsync(token);
+            return entries
+                .Select(x => new MinecraftVersionItem(x.Id, x.Type))
+                .ToArray();
     }
     
     public static async Task<IReadOnlyList<string>> GetForgeVersionsAsync(string mcVersion, CancellationToken token)

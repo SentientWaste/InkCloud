@@ -9,6 +9,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using InkCloudLauncher.Models;
 using InkCloudLauncher.Service;
+using MinecraftLaunch.Base.Models.Network;
+using MinecraftLaunch.Components.Provider;
 
 namespace InkCloudLauncher.ViewModel;
 
@@ -136,6 +138,7 @@ public partial class MainWindowViewModel : ObservableObject
     public bool IsGameVersionListVisible => IsGameDownloadSelected && string.IsNullOrEmpty(SelectedGameVersion);
     public bool IsGameVersionConfigVisible => IsGameDownloadSelected && !string.IsNullOrEmpty(SelectedGameVersion);
 
+    public ObservableCollection<ModrinthResource> ModResources { get; } = [];
     public ObservableCollection<MinecraftVersionItem> OnlineGameVersions { get; } = [];
     public ObservableCollection<string> InstalledVersions { get; } = [];
     public ObservableCollection<string> ForgeVersions { get; } = [InstallService.None];
@@ -328,6 +331,32 @@ public partial class MainWindowViewModel : ObservableObject
         DownloadPageMargin = new Thickness(34, 0, -34, 0);
     }
 
+    private async Task RefreshDownloadDataAsync()
+    {
+        await RunMinecraftTaskAsync("正在加载版本列表...", async token =>
+        {
+            _allOnlineGameVersions.Clear();
+            foreach (var version in await InstallService.GetVersionsAsync(token))
+            {
+                _allOnlineGameVersions.Add(version);
+            }
+
+            ApplyGameVersionFilter();
+            RefreshInstalledVersions();
+            TaskStatus = "版本列表已刷新";
+        });
+    }
+
+    private async Task RefreshModrinthDataAsync() {
+        ModResources.Clear();
+        
+        ModrinthProvider provider = new();
+
+        var resources = await provider.GetFeaturedResourcesAsync();
+        foreach (var resource in resources)
+            ModResources.Add(resource);
+    }
+    
     [RelayCommand]
     private async Task SelectDownloadSectionAsync(string section)
     {
@@ -344,6 +373,10 @@ public partial class MainWindowViewModel : ObservableObject
         DownloadContentMargin = new Thickness(22, 0, -22, 0);
         DownloadContentOpacity = 1;
         DownloadContentMargin = new Thickness(0);
+
+        _ = Task.Run(async () => {
+           await RefreshModrinthDataAsync();
+        });
     }
 
     [RelayCommand]
@@ -375,23 +408,6 @@ public partial class MainWindowViewModel : ObservableObject
         DownloadContentMargin = new Thickness(22, 0, -22, 0);
         DownloadContentOpacity = 1;
         DownloadContentMargin = new Thickness(0);
-    }
-
-    [RelayCommand]
-    private async Task RefreshDownloadDataAsync()
-    {
-        await RunMinecraftTaskAsync("正在加载版本列表...", async token =>
-        {
-            _allOnlineGameVersions.Clear();
-            foreach (var version in await _minecraft.GetOnlineVersionsAsync(token))
-            {
-                _allOnlineGameVersions.Add(version);
-            }
-
-            ApplyGameVersionFilter();
-            RefreshInstalledVersions();
-            TaskStatus = "版本列表已刷新";
-        });
     }
 
     [RelayCommand]

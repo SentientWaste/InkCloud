@@ -54,15 +54,7 @@ public sealed class MinecraftService {
             .OrderByDescending(x => x)
             .ToArray();
     }
-
-    public async Task<IReadOnlyList<MinecraftVersionItem>> GetOnlineVersionsAsync(CancellationToken token)
-    {
-        var entries = await VanillaInstaller.EnumerableMinecraftAsync(token);
-        return entries
-            .Select(x => new MinecraftVersionItem(x.Id, x.Type))
-            .ToArray();
-    }
-
+    
     public async Task LaunchAsync(string? configuredFolder, LaunchOption options, CancellationToken token)
     {
         var folder = GetMinecraftFolder(configuredFolder);

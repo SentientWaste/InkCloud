@@ -3,6 +3,7 @@
              xmlns:fa="using:FluentAvalonia.UI.Controls"
              xmlns:im="using:InkCloudLauncher.Models"
              xmlns:vm="using:InkCloudLauncher.ViewModel"
+             xmlns:ail="using:AsyncImageLoader"
              x:Class="InkCloudLauncher.View.DownloadView"
              x:DataType="vm:MainWindowViewModel">
   <Border Classes="downloadShell" Margin="10">
@@ -33,17 +34,17 @@
               </Grid>
             </Button>
           </Border>
-
+          
           <Border Classes="settingsNavShadow" Classes.active="{Binding IsExtraDownloadSelected}">
             <Button Classes="settingsNavItem"
                     Classes.active="{Binding IsExtraDownloadSelected}"
                     Command="{Binding SelectDownloadSectionCommand}"
                     CommandParameter="Extra">
               <Grid ColumnDefinitions="34,*">
-                <fa:SymbolIcon Symbol="Setting" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <fa:SymbolIcon Symbol="Games" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <StackPanel Grid.Column="1" Spacing="1" VerticalAlignment="Center">
-                  <TextBlock Classes="settingsNavText" Text="杂项下载" />
-                  <TextBlock Classes="settingsNavHint" Text="Java 与工具" />
+                  <TextBlock Classes="settingsNavText" Text="模组下载" />
+                  <TextBlock Classes="settingsNavHint" Text="社区资源" />
                 </StackPanel>
               </Grid>
             </Button>
@@ -101,9 +102,15 @@
                     <Grid ColumnDefinitions="*,Auto,Auto" Height="54" ColumnSpacing="10">
                       <TextBlock Classes="settingsGroupTitle" Text="{Binding Id}" VerticalAlignment="Center" />
                       <Border Grid.Column="1" Classes="versionTag" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding DisplayType}" />
+                        <TextBlock Text="{Binding DisplayType}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
                       </Border>
-                      <TextBlock Grid.Column="2" Classes="versionArrow" Text=">" VerticalAlignment="Center" />
+                                          
+                      <fa:SymbolIcon FontSize="14"
+                                     Symbol="ChevronRight"
+                                     VerticalAlignment="Center"
+                                     Grid.Column="2"/>
                     </Grid>
                   </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -147,18 +154,46 @@
             </StackPanel>
 
             <StackPanel Spacing="10" IsVisible="{Binding IsExtraDownloadSelected}">
-              <TextBlock Classes="settingsSectionTitle" Text="杂项下载" />
-              <Border Classes="settingsGroup">
-                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
-                  <TextBlock Classes="settingsGroupTitle" Text="Java 运行时" />
-                  <TextBlock Grid.Row="1" Classes="settingsGroupHint" Text="自动补全启动所需的 Java 版本。" />
-                  <Button Grid.Column="1"
-                          Grid.RowSpan="2"
-                          Classes="settingsActionButton"
-                          Command="{Binding InstallJavaRuntimeCommand}"
-                          Content="获取" />
-                </Grid>
-              </Border>
+              <TextBlock Classes="settingsSectionTitle" Text="Modrinth 模组下载" />
+              
+              <ListBox Classes="versionList"
+                       ItemsSource="{Binding ModResources}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <Grid Margin="0 8"
+                          ColumnDefinitions="auto 12 * 16 auto">
+                      <Border Width="36"
+                              Height="36"
+                              CornerRadius="4"
+                              Grid.Column="0">
+                        <Border.Background>
+                          <ImageBrush Stretch="UniformToFill"
+                                      ail:ImageBrushLoader.Source="{Binding IconUrl}"/>
+                        </Border.Background>
+                      </Border>
+                    
+                      <StackPanel HorizontalAlignment="Left"
+                                  Grid.Column="2">
+                        <TextBlock FontSize="14"
+                                   TextAlignment="Left"
+                                   FontWeight="SemiBold"
+                                   TextTrimming="CharacterEllipsis"
+                                   Text="{Binding Name}" />
+                      
+                        <TextBlock FontSize="12"
+                                   TextAlignment="Left"
+                                   TextTrimming="CharacterEllipsis"
+                                   Text="{Binding Summary}"/>
+                      </StackPanel>
+                    
+                      <fa:SymbolIcon FontSize="14"
+                                     Symbol="ChevronRight"
+                                     VerticalAlignment="Center"
+                                     Grid.Column="4"/>
+                    </Grid>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
             </StackPanel>
           </StackPanel>
         </ScrollViewer>

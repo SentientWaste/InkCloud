@@ -180,7 +180,7 @@
       <Transitions>
         <BrushTransition Property="Background" Duration="0:0:0.18"/>
         <BrushTransition Property="BorderBrush" Duration="0:0:0.18"/>
-        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.24">
+        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.18">
           <TransformOperationsTransition.Easing>
             <CubicEaseOut/>
           </TransformOperationsTransition.Easing>
